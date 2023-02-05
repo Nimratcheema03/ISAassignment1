@@ -1,0 +1,830 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Guide to API</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+    body {
+font: 400 16px/1.5 'Helvetica Neue', Helvetica, Arial, sans-serif;
+color: #111;
+background-color: #fdfdfd;
+-webkit-text-size-adjust: 100%;
+-webkit-font-feature-settings: 'kern' 1;
+-moz-font-feature-settings: 'kern' 1;
+-o-font-feature-settings: 'kern' 1;
+font-feature-settings: 'kern' 1;
+font-kerning: normal;
+padding: 30px;
+}
+
+@media only screen and (max-width: 600px) {
+body {
+padding: 5px;
+}
+
+main {
+padding: 0px 20px 20px 20px !important;
+}
+}
+
+main {
+margin: 0px;
+max-width: 900px;
+border: 1px solid #e1e4e8;
+padding: 10px 40px;
+padding-bottom: 20px;
+border-radius: 2px;
+margin-left: auto;
+margin-right: auto;
+}
+
+hr {
+color: #bbb;
+background-color: #bbb;
+height: 1px;
+flex: 0 1 auto;
+margin: 1em 0;
+padding: 0;
+border: none;
+}
+
+/**
+* Links
+*/
+a {
+color: #0366d6;
+text-decoration: none;
+}
+a:visited {
+color: #0366d6;
+}
+a:hover {
+color: #0366d6;
+text-decoration: underline;
+}
+
+pre {
+background-color: #f6f8fa;
+border-radius: 3px;
+font-size: 85%;
+line-height: 1.45;
+overflow: auto;
+padding: 16px;
+}
+
+/**
+* Code blocks
+*/
+
+code {
+background-color: rgba(27, 31, 35, 0.05);
+border-radius: 3px;
+font-size: 85%;
+margin: 0;
+word-wrap: break-word;
+padding: 0.2em 0.4em;
+font-family: SFMono-Regular, Consolas, Liberation Mono, Menlo, Courier,
+monospace;
+}
+
+pre > code {
+background-color: transparent;
+border: 0;
+display: inline;
+line-height: inherit;
+margin: 0;
+overflow: visible;
+padding: 0;
+word-wrap: normal;
+font-size: 100%;
+}
+
+/**
+* Blockquotes
+*/
+blockquote {
+margin-left: 30px;
+margin-top: 0px;
+margin-bottom: 16px;
+border-left-width: 3px;
+padding: 0 1em;
+color: #828282;
+border-left: 4px solid #e8e8e8;
+padding-left: 15px;
+font-size: 18px;
+letter-spacing: -1px;
+font-style: italic;
+}
+blockquote * {
+font-style: normal !important;
+letter-spacing: 0;
+color: #6a737d !important;
+}
+
+/**
+* Tables
+*/
+table {
+border-spacing: 2px;
+display: block;
+font-size: 14px;
+overflow: auto;
+width: 100%;
+margin-bottom: 16px;
+border-spacing: 0;
+border-collapse: collapse;
+}
+
+td {
+padding: 6px 13px;
+border: 1px solid #dfe2e5;
+}
+
+th {
+font-weight: 600;
+padding: 6px 13px;
+border: 1px solid #dfe2e5;
+}
+
+tr {
+background-color: #fff;
+border-top: 1px solid #c6cbd1;
+}
+
+table tr:nth-child(2n) {
+background-color: #f6f8fa;
+}
+
+/**
+* Others
+*/
+
+img {
+max-width: 100%;
+}
+
+p {
+line-height: 24px;
+font-weight: 400;
+font-size: 16px;
+color: #24292e;
+}
+
+ul {
+margin-top: 0;
+}
+
+li {
+color: #24292e;
+font-size: 16px;
+font-weight: 400;
+line-height: 1.5;
+}
+
+li + li {
+margin-top: 0.25em;
+}
+
+body {
+font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial,
+sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+color: #24292e;
+}
+
+a:visited {
+color: #0366d6;
+}
+
+h1,
+h2,
+h3 {
+border-bottom: 1px solid #eaecef;
+color: #111;
+/* Darker */
+}
+
+    </style>
+    <style>
+    pre code.hljs{display:block;overflow-x:auto;padding:1em}code.hljs{padding:3px 5px}/*!
+
+*/.hljs{color:#24292e;background:#fff}.hljs-doctag,.hljs-keyword,.hljs-meta .hljs-keyword,.hljs-template-tag,.hljs-template-variable,.hljs-type,.hljs-variable.language_{color:#d73a49}.hljs-title,.hljs-title.class_,.hljs-title.class_.inherited__,.hljs-title.function_{color:#6f42c1}.hljs-attr,.hljs-attribute,.hljs-literal,.hljs-meta,.hljs-number,.hljs-operator,.hljs-selector-attr,.hljs-selector-class,.hljs-selector-id,.hljs-variable{color:#005cc5}.hljs-meta .hljs-string,.hljs-regexp,.hljs-string{color:#032f62}.hljs-built_in,.hljs-symbol{color:#e36209}.hljs-code,.hljs-comment,.hljs-formula{color:#6a737d}.hljs-name,.hljs-quote,.hljs-selector-pseudo,.hljs-selector-tag{color:#22863a}.hljs-subst{color:#24292e}.hljs-section{color:#005cc5;font-weight:700}.hljs-bullet{color:#735c0f}.hljs-emphasis{color:#24292e;font-style:italic}.hljs-strong{color:#24292e;font-weight:700}.hljs-addition{color:#22863a;background-color:#f0fff4}.hljs-deletion{color:#b31d28;background-color:#ffeef0}
+    </style>
+  </head>
+  <body>
+    <main>
+<h2 id="show-all-pokemons"><strong>Show All Pokemons</strong></h2>
+<p>Returns all pokemons in JSON format.</p>
+<ul>
+<li><p><strong>URL</strong></p>
+<p>/api/v1/pokemons</p></li>
+<li><p><strong>Method:</strong></p>
+<p><code>GET</code></p></li>
+<li><p><strong>URL Params</strong></p>
+<p><code>count=[integer], default value=10</code><br><br />
+<code>after=[integer], default value=0</code><br><br />
+<strong>Required:</strong></p></li>
+<li><p><strong>Data Params</strong></p>
+<p>None</p></li>
+<li><p><strong>Success Response:</strong></p>
+<ul>
+<li><strong>Code:</strong> 200 <br /><br />
+<strong>Content:</strong> </li></ul>
+<pre><code class="hljs json language-json"><span class="hljs-punctuation">[</span><span class="hljs-punctuation">{</span>
+<span class="hljs-attr">&quot;name&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+<span class="hljs-attr">&quot;english&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Bulbasaur&quot;</span><span class="hljs-punctuation">,</span>
+<span class="hljs-attr">&quot;japanese&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;フシギダネ&quot;</span><span class="hljs-punctuation">,</span>
+<span class="hljs-attr">&quot;chinese&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;妙蛙种子&quot;</span><span class="hljs-punctuation">,</span>
+<span class="hljs-attr">&quot;french&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Bulbizarre&quot;</span>
+<span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+<span class="hljs-attr">&quot;base&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+<span class="hljs-attr">&quot;HP&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">45</span><span class="hljs-punctuation">,</span>
+<span class="hljs-attr">&quot;Attack&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">49</span><span class="hljs-punctuation">,</span>
+<span class="hljs-attr">&quot;Defense&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">49</span><span class="hljs-punctuation">,</span>
+<span class="hljs-attr">&quot;Speed&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">45</span>
+<span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+<span class="hljs-attr">&quot;_id&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;63dc29cc8b67f8eea36372e1&quot;</span><span class="hljs-punctuation">,</span>
+<span class="hljs-attr">&quot;id&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">1</span><span class="hljs-punctuation">,</span>
+<span class="hljs-attr">&quot;type&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-string">&quot;Grass&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-string">&quot;Poison&quot;</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
+<span class="hljs-attr">&quot;__v&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">0</span>
+<span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span> <span class="hljs-punctuation">{</span>
+<span class="hljs-attr">&quot;name&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+<span class="hljs-attr">&quot;english&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Ivysaur&quot;</span><span class="hljs-punctuation">,</span>
+<span class="hljs-attr">&quot;japanese&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;フシギソウ&quot;</span><span class="hljs-punctuation">,</span>
+<span class="hljs-attr">&quot;chinese&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;妙蛙草&quot;</span><span class="hljs-punctuation">,</span>
+<span class="hljs-attr">&quot;french&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Herbizarre&quot;</span>
+<span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+<span class="hljs-attr">&quot;base&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+<span class="hljs-attr">&quot;HP&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">60</span><span class="hljs-punctuation">,</span>
+<span class="hljs-attr">&quot;Attack&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">62</span><span class="hljs-punctuation">,</span>
+<span class="hljs-attr">&quot;Defense&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">63</span><span class="hljs-punctuation">,</span>
+<span class="hljs-attr">&quot;Speed&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">60</span>
+<span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+<span class="hljs-attr">&quot;_id&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;63dc29cc8b67f8eea36372e2&quot;</span><span class="hljs-punctuation">,</span>
+<span class="hljs-attr">&quot;id&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">2</span><span class="hljs-punctuation">,</span>
+<span class="hljs-attr">&quot;type&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-string">&quot;Grass&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-string">&quot;Poison&quot;</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
+<span class="hljs-attr">&quot;__v&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">0</span>
+<span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span> <span class="hljs-punctuation">{</span>
+<span class="hljs-attr">&quot;name&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+<span class="hljs-attr">&quot;english&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Venusaur&quot;</span><span class="hljs-punctuation">,</span>
+<span class="hljs-attr">&quot;japanese&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;フシギバナ&quot;</span><span class="hljs-punctuation">,</span>
+<span class="hljs-attr">&quot;chinese&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;妙蛙花&quot;</span><span class="hljs-punctuation">,</span>
+<span class="hljs-attr">&quot;french&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Florizarre&quot;</span>
+<span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+<span class="hljs-attr">&quot;base&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+<span class="hljs-attr">&quot;HP&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">80</span><span class="hljs-punctuation">,</span>
+<span class="hljs-attr">&quot;Attack&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">82</span><span class="hljs-punctuation">,</span>
+<span class="hljs-attr">&quot;Defense&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">83</span><span class="hljs-punctuation">,</span>
+<span class="hljs-attr">&quot;Speed&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">80</span>
+<span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+<span class="hljs-attr">&quot;_id&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;63dc29cd8b67f8eea36372e3&quot;</span><span class="hljs-punctuation">,</span>
+<span class="hljs-attr">&quot;id&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">3</span><span class="hljs-punctuation">,</span>
+<span class="hljs-attr">&quot;type&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-string">&quot;Grass&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-string">&quot;Poison&quot;</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
+<span class="hljs-attr">&quot;__v&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">0</span>
+<span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span> <span class="hljs-punctuation">{</span>
+<span class="hljs-attr">&quot;name&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+<span class="hljs-attr">&quot;english&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Charmander&quot;</span><span class="hljs-punctuation">,</span>
+<span class="hljs-attr">&quot;japanese&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;ヒトカゲ&quot;</span><span class="hljs-punctuation">,</span>
+<span class="hljs-attr">&quot;chinese&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;小火龙&quot;</span><span class="hljs-punctuation">,</span>
+<span class="hljs-attr">&quot;french&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Salamèche&quot;</span>
+<span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+<span class="hljs-attr">&quot;base&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+<span class="hljs-attr">&quot;HP&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">39</span><span class="hljs-punctuation">,</span>
+<span class="hljs-attr">&quot;Attack&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">52</span><span class="hljs-punctuation">,</span>
+<span class="hljs-attr">&quot;Defense&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">43</span><span class="hljs-punctuation">,</span>
+<span class="hljs-attr">&quot;Speed&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">65</span>
+<span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+<span class="hljs-attr">&quot;_id&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;63dc29cd8b67f8eea36372e4&quot;</span><span class="hljs-punctuation">,</span>
+<span class="hljs-attr">&quot;id&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">4</span><span class="hljs-punctuation">,</span>
+<span class="hljs-attr">&quot;type&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-string">&quot;Fire&quot;</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
+<span class="hljs-attr">&quot;__v&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">0</span>
+<span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span> <span class="hljs-punctuation">{</span>
+<span class="hljs-attr">&quot;name&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+<span class="hljs-attr">&quot;english&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Charmeleon&quot;</span><span class="hljs-punctuation">,</span>
+<span class="hljs-attr">&quot;japanese&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;リザード&quot;</span><span class="hljs-punctuation">,</span>
+<span class="hljs-attr">&quot;chinese&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;火恐龙&quot;</span><span class="hljs-punctuation">,</span>
+<span class="hljs-attr">&quot;french&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Reptincel&quot;</span>
+<span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+<span class="hljs-attr">&quot;base&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+<span class="hljs-attr">&quot;HP&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">58</span><span class="hljs-punctuation">,</span>
+<span class="hljs-attr">&quot;Attack&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">64</span><span class="hljs-punctuation">,</span>
+<span class="hljs-attr">&quot;Defense&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">58</span><span class="hljs-punctuation">,</span>
+<span class="hljs-attr">&quot;Speed&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">80</span>
+<span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+<span class="hljs-attr">&quot;_id&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;63dc29cd8b67f8eea36372e5&quot;</span><span class="hljs-punctuation">,</span>
+<span class="hljs-attr">&quot;id&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">5</span><span class="hljs-punctuation">,</span>
+<span class="hljs-attr">&quot;type&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-string">&quot;Fire&quot;</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
+<span class="hljs-attr">&quot;__v&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">0</span>
+<span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span> <span class="hljs-punctuation">{</span>
+<span class="hljs-attr">&quot;name&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+<span class="hljs-attr">&quot;english&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Charizard&quot;</span><span class="hljs-punctuation">,</span>
+<span class="hljs-attr">&quot;japanese&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;リザードン&quot;</span><span class="hljs-punctuation">,</span>
+<span class="hljs-attr">&quot;chinese&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;喷火龙&quot;</span><span class="hljs-punctuation">,</span>
+<span class="hljs-attr">&quot;french&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Dracaufeu&quot;</span>
+<span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+<span class="hljs-attr">&quot;base&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+<span class="hljs-attr">&quot;HP&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">78</span><span class="hljs-punctuation">,</span>
+<span class="hljs-attr">&quot;Attack&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">84</span><span class="hljs-punctuation">,</span>
+<span class="hljs-attr">&quot;Defense&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">78</span><span class="hljs-punctuation">,</span>
+<span class="hljs-attr">&quot;Speed&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">100</span>
+<span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+<span class="hljs-attr">&quot;_id&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;63dc29cd8b67f8eea36372e6&quot;</span><span class="hljs-punctuation">,</span>
+<span class="hljs-attr">&quot;id&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">6</span><span class="hljs-punctuation">,</span>
+<span class="hljs-attr">&quot;type&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-string">&quot;Fire&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-string">&quot;Flying&quot;</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
+<span class="hljs-attr">&quot;__v&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">0</span>
+<span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span> <span class="hljs-punctuation">{</span>
+<span class="hljs-attr">&quot;name&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+<span class="hljs-attr">&quot;english&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Squirtle&quot;</span><span class="hljs-punctuation">,</span>
+<span class="hljs-attr">&quot;japanese&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;ゼニガメ&quot;</span><span class="hljs-punctuation">,</span>
+<span class="hljs-attr">&quot;chinese&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;杰尼龟&quot;</span><span class="hljs-punctuation">,</span>
+<span class="hljs-attr">&quot;french&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Carapuce&quot;</span>
+<span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+<span class="hljs-attr">&quot;base&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+<span class="hljs-attr">&quot;HP&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">44</span><span class="hljs-punctuation">,</span>
+<span class="hljs-attr">&quot;Attack&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">48</span><span class="hljs-punctuation">,</span>
+<span class="hljs-attr">&quot;Defense&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">65</span><span class="hljs-punctuation">,</span>
+<span class="hljs-attr">&quot;Speed&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">43</span>
+<span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+<span class="hljs-attr">&quot;_id&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;63dc29cd8b67f8eea36372e7&quot;</span><span class="hljs-punctuation">,</span>
+<span class="hljs-attr">&quot;id&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">7</span><span class="hljs-punctuation">,</span>
+<span class="hljs-attr">&quot;type&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-string">&quot;Water&quot;</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
+<span class="hljs-attr">&quot;__v&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">0</span>
+<span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span> <span class="hljs-punctuation">{</span>
+<span class="hljs-attr">&quot;name&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+<span class="hljs-attr">&quot;english&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Wartortle&quot;</span><span class="hljs-punctuation">,</span>
+<span class="hljs-attr">&quot;japanese&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;カメール&quot;</span><span class="hljs-punctuation">,</span>
+<span class="hljs-attr">&quot;chinese&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;卡咪龟&quot;</span><span class="hljs-punctuation">,</span>
+<span class="hljs-attr">&quot;french&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Carabaffe&quot;</span>
+<span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+<span class="hljs-attr">&quot;base&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+<span class="hljs-attr">&quot;HP&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">59</span><span class="hljs-punctuation">,</span>
+<span class="hljs-attr">&quot;Attack&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">63</span><span class="hljs-punctuation">,</span>
+<span class="hljs-attr">&quot;Defense&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">80</span><span class="hljs-punctuation">,</span>
+<span class="hljs-attr">&quot;Speed&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">58</span>
+<span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+<span class="hljs-attr">&quot;_id&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;63dc29cd8b67f8eea36372e8&quot;</span><span class="hljs-punctuation">,</span>
+<span class="hljs-attr">&quot;id&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">8</span><span class="hljs-punctuation">,</span>
+<span class="hljs-attr">&quot;type&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-string">&quot;Water&quot;</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
+<span class="hljs-attr">&quot;__v&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">0</span>
+<span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span> <span class="hljs-punctuation">{</span>
+<span class="hljs-attr">&quot;name&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+<span class="hljs-attr">&quot;english&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Blastoise&quot;</span><span class="hljs-punctuation">,</span>
+<span class="hljs-attr">&quot;japanese&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;カメックス&quot;</span><span class="hljs-punctuation">,</span>
+<span class="hljs-attr">&quot;chinese&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;水箭龟&quot;</span><span class="hljs-punctuation">,</span>
+<span class="hljs-attr">&quot;french&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Tortank&quot;</span>
+<span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+<span class="hljs-attr">&quot;base&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+<span class="hljs-attr">&quot;HP&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">79</span><span class="hljs-punctuation">,</span>
+<span class="hljs-attr">&quot;Attack&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">83</span><span class="hljs-punctuation">,</span>
+<span class="hljs-attr">&quot;Defense&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">100</span><span class="hljs-punctuation">,</span>
+<span class="hljs-attr">&quot;Speed&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">78</span>
+<span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+<span class="hljs-attr">&quot;_id&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;63dc29cd8b67f8eea36372e9&quot;</span><span class="hljs-punctuation">,</span>
+<span class="hljs-attr">&quot;id&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">9</span><span class="hljs-punctuation">,</span>
+<span class="hljs-attr">&quot;type&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-string">&quot;Water&quot;</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
+<span class="hljs-attr">&quot;__v&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">0</span>
+<span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span> <span class="hljs-punctuation">{</span>
+<span class="hljs-attr">&quot;name&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+<span class="hljs-attr">&quot;english&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Caterpie&quot;</span><span class="hljs-punctuation">,</span>
+<span class="hljs-attr">&quot;japanese&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;キャタピー&quot;</span><span class="hljs-punctuation">,</span>
+<span class="hljs-attr">&quot;chinese&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;绿毛虫&quot;</span><span class="hljs-punctuation">,</span>
+<span class="hljs-attr">&quot;french&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Chenipan&quot;</span>
+<span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+<span class="hljs-attr">&quot;base&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+<span class="hljs-attr">&quot;HP&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">45</span><span class="hljs-punctuation">,</span>
+<span class="hljs-attr">&quot;Attack&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">30</span><span class="hljs-punctuation">,</span>
+<span class="hljs-attr">&quot;Defense&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">35</span><span class="hljs-punctuation">,</span>
+<span class="hljs-attr">&quot;Speed&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">45</span>
+<span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+<span class="hljs-attr">&quot;_id&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;63dc29cd8b67f8eea36372ea&quot;</span><span class="hljs-punctuation">,</span>
+<span class="hljs-attr">&quot;id&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">10</span><span class="hljs-punctuation">,</span>
+<span class="hljs-attr">&quot;type&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-string">&quot;Bug&quot;</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
+<span class="hljs-attr">&quot;__v&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">0</span>
+<span class="hljs-punctuation">}</span><span class="hljs-punctuation">]</span> </code></pre></li>
+<li><p><strong>Error Response:</strong></p>
+<ul>
+<li><strong>Code:</strong> 404 NOT FOUND <br /><br />
+<strong>Content:</strong> <code>{"errMsg":"No Pokemons found"}</code></li></ul>
+<p>OR</p>
+<ul>
+<li><strong>Code:</strong> 400 BAD REQUEST <br /><br />
+<strong>Content:</strong> <code>{"errMsg":"CastError: Cast to Number failed for value \"a\" (type string) at path \"skip\""}</code></li></ul></li>
+<li><p><strong>Sample Call:</strong></p></li>
+</ul>
+<pre><code class="hljs javascript language-javascript">    $.<span class="hljs-title function_">ajax</span>({
+<span class="hljs-attr">url</span>: <span class="hljs-string">&quot;/api/v1/pokemons?count=20&amp;after=35&quot;</span>,
+<span class="hljs-attr">dataType</span>: <span class="hljs-string">&quot;json&quot;</span>,
+type : <span class="hljs-string">&quot;GET&quot;</span>,
+success : <span class="hljs-keyword">function</span>(<span class="hljs-params">r</span>) {
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(r);
+}
+});</code></pre>
+<h2 id="show-pokemon"><strong>Show Pokemon</strong></h2>
+<p>Returns json data about a single pokemon by id.</p>
+<ul>
+<li><p><strong>URL</strong></p>
+<p>/api/v1/pokemon/:id</p></li>
+<li><p><strong>Method:</strong></p>
+<p><code>GET</code></p></li>
+<li><p><strong>URL Params</strong></p>
+<p><strong>Required:</strong></p>
+<p><code>id=[integer]</code></p></li>
+<li><p><strong>Data Params</strong></p>
+<p>None</p></li>
+<li><p><strong>Success Response:</strong></p>
+<ul>
+<li><strong>Code:</strong> 200 <br /><br />
+<strong>Content:</strong> <code>{"id":1,"name":{"english":"Bulbasaur","japanese":"フシギダネ","chinese":"妙蛙种子","french":"Bulbizarre"},"type":["Grass","Poison"],"base":{"HP":45,"Attack":49,"Defense":49,"Sp. Attack":65,"Sp. Defense":65,"Speed":45}}</code></li></ul></li>
+<li><p><strong>Error Response:</strong></p>
+<ul>
+<li><strong>Code:</strong> 404 NOT FOUND <br /><br />
+<strong>Content:</strong> <code>{"errMsg":"Pokemon not found"}</code></li></ul>
+<p>OR</p>
+<ul>
+<li><strong>Code:</strong> 400 BAD REQUEST <br /><br />
+<strong>Content:</strong> <code>{"errMsg":"CastError: pokemon id must contain only digits"}</code></li></ul></li>
+<li><p><strong>Sample Call:</strong></p></li>
+</ul>
+<pre><code class="hljs javascript language-javascript">    $.<span class="hljs-title function_">ajax</span>({
+<span class="hljs-attr">url</span>: <span class="hljs-string">&quot;/api/v1/pokemon/23&quot;</span>,
+<span class="hljs-attr">dataType</span>: <span class="hljs-string">&quot;json&quot;</span>,
+type : <span class="hljs-string">&quot;GET&quot;</span>,
+success : <span class="hljs-keyword">function</span>(<span class="hljs-params">r</span>) {
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(r);
+}
+});</code></pre>
+<h2 id="create-pokemon"><strong>Create Pokemon</strong></h2>
+<p>Create new Pokemon and store it to database.</p>
+<ul>
+<li><p><strong>URL</strong></p>
+<p>/api/v1/pokemon</p></li>
+<li><p><strong>Method:</strong></p>
+<p><code>POST</code></p></li>
+<li><p><strong>URL Params</strong></p>
+<p><strong>Required:</strong></p>
+<p>None</p></li>
+<li><p><strong>Data Params</strong></p></li>
+</ul>
+<pre><code class="hljs javascript language-javascript">  {
+<span class="hljs-attr">id</span>: {
+<span class="hljs-attr">type</span>: <span class="hljs-title class_">Number</span>,
+<span class="hljs-attr">unique</span>: <span class="hljs-literal">true</span>,
+<span class="hljs-attr">required</span>: <span class="hljs-literal">true</span>
+},
+<span class="hljs-attr">name</span>: {
+<span class="hljs-attr">english</span>: {
+    <span class="hljs-attr">type</span>: <span class="hljs-title class_">String</span>,
+    <span class="hljs-attr">required</span>: <span class="hljs-literal">true</span>,
+},
+<span class="hljs-attr">japanese</span>: <span class="hljs-title class_">String</span>,
+<span class="hljs-attr">chinese</span>: <span class="hljs-title class_">String</span>,
+<span class="hljs-attr">french</span>: <span class="hljs-title class_">String</span>
+},
+<span class="hljs-attr">type</span>: {
+<span class="hljs-attr">type</span>: [<span class="hljs-title class_">String</span>],
+<span class="hljs-attr">enum</span>: pokemonTypes,
+<span class="hljs-attr">required</span>: <span class="hljs-literal">true</span>
+},
+<span class="hljs-attr">base</span>: {
+<span class="hljs-attr">HP</span>: <span class="hljs-title class_">Number</span>,
+<span class="hljs-title class_">Attack</span>: <span class="hljs-title class_">Number</span>,
+<span class="hljs-title class_">Defense</span>: <span class="hljs-title class_">Number</span>,
+<span class="hljs-string">&#x27;Speed Attack&#x27;</span>: <span class="hljs-title class_">Number</span>,
+<span class="hljs-string">&#x27;Speed Defense&#x27;</span>: <span class="hljs-title class_">Number</span>,
+<span class="hljs-string">&#x27;Speed&#x27;</span>: <span class="hljs-title class_">Number</span>
+}
+}</code></pre>
+<ul>
+<li><p><strong>Success Response:</strong></p>
+<ul>
+<li><strong>Code:</strong> 201 <br /><br />
+<strong>Content:</strong> <code>{"id":1,"name":{"english":"Bulbasaur","japanese":"フシギダネ","chinese":"妙蛙种子","french":"Bulbizarre"},"type":["Grass","Poison"],"base":{"HP":45,"Attack":49,"Defense":49,"Sp. Attack":65,"Sp. Defense":65,"Speed":45}}</code></li></ul></li>
+<li><p><strong>Error Response:</strong></p>
+<ul>
+<li><strong>Code:</strong> 404 NOT FOUND <br /><br />
+<strong>Content:</strong> <code>{"errMsg":"Pokemon not found"}</code></li></ul>
+<p>OR</p>
+<ul>
+<li><strong>Code:</strong> 400 BAD REQUEST <br /><br />
+<strong>Content:</strong> <code>"errMsg": "Invalid pokemon data. ValidationError: type.1:</code>jim<code>is not a valid enum value for path</code>type.1<code>."</code></li></ul>
+<p>OR</p>
+<ul>
+<li><strong>Code:</strong> 400 BAD REQUEST <br /><br />
+<strong>Content:</strong> <code>"errMsg": "Duplicate Pokemon"</code></li></ul></li>
+<li><p><strong>Sample Call:</strong></p></li>
+</ul>
+<pre><code class="hljs javascript language-javascript">    $.<span class="hljs-title function_">ajax</span>({
+<span class="hljs-attr">url</span>: <span class="hljs-string">&quot;/api/v1/pokemon&quot;</span>,
+<span class="hljs-attr">dataType</span>: <span class="hljs-string">&quot;json&quot;</span>,
+type : <span class="hljs-string">&quot;POST&quot;</span>,
+<span class="hljs-attr">data</span>: {
+<span class="hljs-string">&quot;name&quot;</span>: {
+  <span class="hljs-string">&quot;english&quot;</span>: <span class="hljs-string">&quot;test&quot;</span>,
+  <span class="hljs-string">&quot;japanese&quot;</span>: <span class="hljs-string">&quot;test&quot;</span>,
+  <span class="hljs-string">&quot;chinese&quot;</span>: <span class="hljs-string">&quot;test&quot;</span>,
+  <span class="hljs-string">&quot;french&quot;</span>: <span class="hljs-string">&quot;test&quot;</span>
+},
+<span class="hljs-string">&quot;base&quot;</span>: {
+  <span class="hljs-string">&quot;HP&quot;</span>: <span class="hljs-number">50</span>,
+  <span class="hljs-string">&quot;Attack&quot;</span>: <span class="hljs-number">20</span>,
+  <span class="hljs-string">&quot;Defense&quot;</span>: <span class="hljs-number">55</span>,
+  <span class="hljs-string">&quot;Speed&quot;</span>: <span class="hljs-number">30</span>,
+  <span class="hljs-string">&quot;Speed Attack&quot;</span>: <span class="hljs-number">25</span>,
+  <span class="hljs-string">&quot;Speed Defense&quot;</span>: <span class="hljs-number">25</span>
+},
+
+<span class="hljs-string">&quot;id&quot;</span>: <span class="hljs-number">1000</span>,
+<span class="hljs-string">&quot;type&quot;</span>: [
+  <span class="hljs-string">&quot;Bug&quot;</span>
+],
+<span class="hljs-string">&quot;__v&quot;</span>: <span class="hljs-number">0</span>
+},
+success : <span class="hljs-keyword">function</span>(<span class="hljs-params">r</span>) {
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(r);
+}
+});</code></pre>
+<h2 id="upsert-pokemon"><strong>Upsert Pokemon</strong></h2>
+<p>Update/Insert Pokemon in database.</p>
+<ul>
+<li><p><strong>URL</strong></p>
+<p>/api/v1/pokemon/:id</p></li>
+<li><p><strong>Method:</strong></p>
+<p><code>PUT</code></p></li>
+<li><p><strong>URL Params</strong></p>
+<p><strong>Required:</strong></p>
+<p><code>id=[integer]</code></p></li>
+<li><p><strong>Data Params</strong></p></li>
+</ul>
+<pre><code class="hljs javascript language-javascript">  {
+<span class="hljs-attr">id</span>: {
+<span class="hljs-attr">type</span>: <span class="hljs-title class_">Number</span>,
+<span class="hljs-attr">unique</span>: <span class="hljs-literal">true</span>,
+<span class="hljs-attr">required</span>: <span class="hljs-literal">true</span>
+},
+<span class="hljs-attr">name</span>: {
+<span class="hljs-attr">english</span>: {
+    <span class="hljs-attr">type</span>: <span class="hljs-title class_">String</span>,
+    <span class="hljs-attr">required</span>: <span class="hljs-literal">true</span>,
+},
+<span class="hljs-attr">japanese</span>: <span class="hljs-title class_">String</span>,
+<span class="hljs-attr">chinese</span>: <span class="hljs-title class_">String</span>,
+<span class="hljs-attr">french</span>: <span class="hljs-title class_">String</span>
+},
+<span class="hljs-attr">type</span>: {
+<span class="hljs-attr">type</span>: [<span class="hljs-title class_">String</span>],
+<span class="hljs-attr">enum</span>: pokemonTypes,
+<span class="hljs-attr">required</span>: <span class="hljs-literal">true</span>
+},
+<span class="hljs-attr">base</span>: {
+<span class="hljs-attr">HP</span>: <span class="hljs-title class_">Number</span>,
+<span class="hljs-title class_">Attack</span>: <span class="hljs-title class_">Number</span>,
+<span class="hljs-title class_">Defense</span>: <span class="hljs-title class_">Number</span>,
+<span class="hljs-string">&#x27;Speed Attack&#x27;</span>: <span class="hljs-title class_">Number</span>,
+<span class="hljs-string">&#x27;Speed Defense&#x27;</span>: <span class="hljs-title class_">Number</span>,
+<span class="hljs-string">&#x27;Speed&#x27;</span>: <span class="hljs-title class_">Number</span>
+}
+}</code></pre>
+<ul>
+<li><p><strong>Success Response:</strong></p>
+<ul>
+<li><strong>Code:</strong> 200 <br /><br />
+<strong>Content:</strong> <br />
+<code>{
+"msg": "Updated Successfully",
+"pokeInfo": {
+"name": {
+"english": "test",
+"japanese": "test",
+"chinese": "test",
+"french": "test"
+},
+"base": {
+"HP": 70,
+"Attack": 10,
+"Defense": 55,
+"Speed": 30,
+"Speed Attack": 25,
+"Speed Defense": 25
+},
+"_id": "63dc48ac4fe5e7fa87eaf7d2",
+"id": 1000,
+"__v": 0,
+"type": [
+"Bug",
+"Electric"
+]
+}
+}</code></li></ul></li>
+<li><p><strong>Error Response:</strong></p>
+<ul>
+<li><strong>Code:</strong> 400 BAD REQUEST <br /><br />
+<strong>Content:</strong> <code>{"errMsg":"CastError: pokemon id must contain only digits"}</code></li></ul>
+<p>OR</p>
+<ul>
+<li><strong>Code:</strong> 400 BAD REQUEST <br /><br />
+<strong>Content:</strong> <code>"errMsg": "Duplicate Pokemon"</code></li></ul>
+<p>OR</p>
+<ul>
+<li><strong>Code:</strong> 400 BAD REQUEST <br /><br />
+<strong>Content:</strong> <code>"errMsg": "Invalid pokemon data. ValidationError: type.1:</code>Paper<code>is not a valid enum value for path</code>type.1<code>."</code></li></ul></li>
+<li><p><strong>Sample Call:</strong></p></li>
+</ul>
+<pre><code class="hljs javascript language-javascript">    $.<span class="hljs-title function_">ajax</span>({
+<span class="hljs-attr">url</span>: <span class="hljs-string">&quot;/api/v1/pokemon/1000&quot;</span>,
+<span class="hljs-attr">dataType</span>: <span class="hljs-string">&quot;json&quot;</span>,
+type : <span class="hljs-string">&quot;PUT&quot;</span>,
+<span class="hljs-attr">data</span>: {
+<span class="hljs-string">&quot;name&quot;</span>: {
+  <span class="hljs-string">&quot;english&quot;</span>: <span class="hljs-string">&quot;test&quot;</span>,
+  <span class="hljs-string">&quot;japanese&quot;</span>: <span class="hljs-string">&quot;test&quot;</span>,
+  <span class="hljs-string">&quot;chinese&quot;</span>: <span class="hljs-string">&quot;test&quot;</span>,
+  <span class="hljs-string">&quot;french&quot;</span>: <span class="hljs-string">&quot;test&quot;</span>
+},
+<span class="hljs-string">&quot;base&quot;</span>: {
+  <span class="hljs-string">&quot;HP&quot;</span>: <span class="hljs-number">70</span>,
+  <span class="hljs-string">&quot;Attack&quot;</span>: <span class="hljs-number">10</span>,
+  <span class="hljs-string">&quot;Defense&quot;</span>: <span class="hljs-number">55</span>,
+  <span class="hljs-string">&quot;Speed&quot;</span>: <span class="hljs-number">30</span>,
+  <span class="hljs-string">&quot;Speed Attack&quot;</span>: <span class="hljs-number">25</span>,
+  <span class="hljs-string">&quot;Speed Defense&quot;</span>: <span class="hljs-number">25</span>
+},
+
+<span class="hljs-string">&quot;id&quot;</span>: <span class="hljs-number">1000</span>,
+<span class="hljs-string">&quot;type&quot;</span>: [
+  <span class="hljs-string">&quot;Bug&quot;</span>
+],
+<span class="hljs-string">&quot;__v&quot;</span>: <span class="hljs-number">0</span>
+},
+success : <span class="hljs-keyword">function</span>(<span class="hljs-params">r</span>) {
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(r);
+}
+});</code></pre>
+<h2 id="update-pokemon"><strong>Update Pokemon</strong></h2>
+<p>Update a complete document or a portion of a document.</p>
+<ul>
+<li><p><strong>URL</strong></p>
+<p>/api/v1/pokemon/:id</p></li>
+<li><p><strong>Method:</strong></p>
+<p><code>PATCH</code></p></li>
+<li><p><strong>URL Params</strong></p>
+<p><strong>Required:</strong></p>
+<p><code>id=[integer]</code></p></li>
+<li><p><strong>Data Params</strong></p></li>
+</ul>
+<pre><code class="hljs javascript language-javascript">    {
+<span class="hljs-attr">id</span>: {
+  <span class="hljs-attr">type</span>: <span class="hljs-title class_">Number</span>,
+  <span class="hljs-attr">unique</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">required</span>: <span class="hljs-literal">true</span>
+},
+<span class="hljs-attr">name</span>: {
+  <span class="hljs-attr">english</span>: {
+      <span class="hljs-attr">type</span>: <span class="hljs-title class_">String</span>,
+      <span class="hljs-attr">required</span>: <span class="hljs-literal">true</span>,
+  },
+  <span class="hljs-attr">japanese</span>: <span class="hljs-title class_">String</span>,
+  <span class="hljs-attr">chinese</span>: <span class="hljs-title class_">String</span>,
+  <span class="hljs-attr">french</span>: <span class="hljs-title class_">String</span>
+},
+<span class="hljs-attr">type</span>: {
+  <span class="hljs-attr">type</span>: [<span class="hljs-title class_">String</span>],
+  <span class="hljs-attr">enum</span>: pokemonTypes,
+  <span class="hljs-attr">required</span>: <span class="hljs-literal">true</span>
+},
+<span class="hljs-attr">base</span>: {
+  <span class="hljs-attr">HP</span>: <span class="hljs-title class_">Number</span>,
+  <span class="hljs-title class_">Attack</span>: <span class="hljs-title class_">Number</span>,
+  <span class="hljs-title class_">Defense</span>: <span class="hljs-title class_">Number</span>,
+  <span class="hljs-string">&#x27;Speed Attack&#x27;</span>: <span class="hljs-title class_">Number</span>,
+  <span class="hljs-string">&#x27;Speed Defense&#x27;</span>: <span class="hljs-title class_">Number</span>,
+  <span class="hljs-string">&#x27;Speed&#x27;</span>: <span class="hljs-title class_">Number</span>
+}
+}</code></pre>
+<ul>
+<li><p><strong>Success Response:</strong></p>
+<ul>
+<li><strong>Code:</strong> 200 <br /><br />
+<strong>Content:</strong> <br />
+<code>{
+"msg": "Updated Successfully",
+"pokeInfo": {
+"name": {
+"english": "test",
+"japanese": "test",
+"chinese": "test",
+"french": "test"
+},
+"base": {
+"HP": 66,
+"Attack": 20,
+"Defense": 55,
+"Speed": 30,
+"Speed Attack": 25,
+"Speed Defense": 25
+},
+"_id": "63dc49784fe5e7fa87ec0677",
+"id": 1000,
+"__v": 0,
+"type": [
+"Bug",
+"Electric"
+]
+}
+}</code></li></ul></li>
+<li><p><strong>Error Response:</strong></p>
+<ul>
+<li><strong>Code:</strong> 400 BAD REQUEST <br /><br />
+<strong>Content:</strong> <code>{"errMsg":"CastError: pokemon id must contain only digits"}</code></li></ul>
+<p>OR</p>
+<ul>
+<li><strong>Code:</strong> 400 BAD REQUEST <br /><br />
+<strong>Content:</strong> <code>"errMsg": "Invalid pokemon data. ValidationError: type.1:</code>Paper<code>is not a valid enum value for path</code>type.1<code>."</code></li></ul>
+<p>OR</p>
+<ul>
+<li><strong>Code:</strong> 404 NOT FOUND <br /><br />
+<strong>Content:</strong> <code>"errMsg": "Pokemon not found"</code></li></ul></li>
+<li><p><strong>Sample Call:</strong></p></li>
+</ul>
+<pre><code class="hljs javascript language-javascript">    $.<span class="hljs-title function_">ajax</span>({
+<span class="hljs-attr">url</span>: <span class="hljs-string">&quot;/api/v1/pokemon/1000&quot;</span>,
+<span class="hljs-attr">dataType</span>: <span class="hljs-string">&quot;json&quot;</span>,
+type : <span class="hljs-string">&quot;PUT&quot;</span>,
+<span class="hljs-attr">data</span>:
+{
+<span class="hljs-string">&quot;base&quot;</span>: {
+  <span class="hljs-string">&quot;HP&quot;</span>: <span class="hljs-number">66</span>,
+  <span class="hljs-string">&quot;Attack&quot;</span>: <span class="hljs-number">20</span>,
+  <span class="hljs-string">&quot;Defense&quot;</span>: <span class="hljs-number">55</span>,
+  <span class="hljs-string">&quot;Speed&quot;</span>: <span class="hljs-number">30</span>,
+  <span class="hljs-string">&quot;Speed Attack&quot;</span>: <span class="hljs-number">25</span>,
+  <span class="hljs-string">&quot;Speed Defense&quot;</span>: <span class="hljs-number">25</span>
+}
+},
+success : <span class="hljs-keyword">function</span>(<span class="hljs-params">r</span>) {
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(r);
+}
+});</code></pre>
+<h2 id="delete-pokemon"><strong>Delete Pokemon</strong></h2>
+<p>Delete Pokemon from database.</p>
+<ul>
+<li><p><strong>URL</strong></p>
+<p>/api/v1/pokemon/:id</p></li>
+<li><p><strong>Method:</strong></p>
+<p><code>DELETE</code></p></li>
+<li><p><strong>URL Params</strong></p>
+<p><strong>Required:</strong></p>
+<p><code>id=[integer]</code></p></li>
+<li><p><strong>Data Params</strong></p>
+<p>None</p></li>
+<li><p><strong>Success Response:</strong></p>
+<ul>
+<li><strong>Code:</strong> 200 <br /><br />
+<strong>Content:</strong> <br />
+<code>{
+"msg": "Deleted Successfully",
+"pokeInfo": {
+"name": {
+"english": "test",
+"japanese": "test",
+"chinese": "test",
+"french": "test"
+},
+"base": {
+"HP": 66,
+"Attack": 20,
+"Defense": 55,
+"Speed": 30,
+"Speed Attack": 25,
+"Speed Defense": 25
+},
+"_id": "63dc49784fe5e7fa87ec0677",
+"id": 1000,
+"__v": 0,
+"type": [
+"Bug",
+"Electric"
+]
+}
+}</code></li></ul></li>
+<li><p><strong>Error Response:</strong></p>
+<ul>
+<li><strong>Code:</strong> 400 BAD REQUEST <br /><br />
+<strong>Content:</strong> <code>{"errMsg":"CastError: pokemon id must contain only digits"}</code></li></ul>
+<p>OR</p>
+<ul>
+<li><strong>Code:</strong> 404 NOT FOUND <br /><br />
+<strong>Content:</strong> <code>"errMsg": "Pokemon not found"</code></li></ul></li>
+<li><p><strong>Sample Call:</strong></p></li>
+</ul>
+<pre><code class="hljs javascript language-javascript">    $.<span class="hljs-title function_">ajax</span>({
+<span class="hljs-attr">url</span>: <span class="hljs-string">&quot;/api/v1/pokemon/1000&quot;</span>,
+<span class="hljs-attr">dataType</span>: <span class="hljs-string">&quot;json&quot;</span>,
+type : <span class="hljs-string">&quot;DELETE&quot;</span>,
+success : <span class="hljs-keyword">function</span>(<span class="hljs-params">r</span>) {
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(r);
+}
+});</code></pre>
+    </main>
+  </body>
+</html>
